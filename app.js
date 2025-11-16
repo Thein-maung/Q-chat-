@@ -110,7 +110,16 @@ function initializeApp() {
     
     try {
         // Generate quantum seed
-        currentSeed = crypto.getRandomValues(new Uint8Array(32));
+        try {
+    currentSeed = crypto.getRandomValues(new Uint8Array(32));
+} catch (error) {
+    console.error('Crypto error, using fallback:', error);
+    // Fallback random generation
+    currentSeed = new Uint8Array(32);
+    for (let i = 0; i < 32; i++) {
+        currentSeed[i] = Math.floor(Math.random() * 256);
+    }
+}
         
         // Update UI
         status.textContent = '✅ QUANTUM READY';
@@ -290,5 +299,6 @@ if (document.readyState === 'loading') {
 } else {
     initializeApp();
 }
+
 
 console.log('🔧 Entangle Chat-2 app.js loaded successfully');
