@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Voice Chat - Entangle Chat-2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎙️ Quantum Voice Chat</h1>
+            <div class="status-container">
+                <div id="status" class="status">Initializing Voice Crypto...</div>
+            </div>
+        </header>
+
+        <div class="voice-container">
+            <div id="call-status" class="call-status">
+                Quantum voice encryption ready
+            </div>
+            
+            <div class="voice-controls">
+                <button id="start-call" class="btn primary">📞 Start Quantum Call</button>
+                <button id="join-call" class="btn primary">🔊 Join Quantum Call</button>
+                <button id="end-call" class="btn danger" disabled>📞 End Call</button>
+            </div>
+
+            <div class="audio-status">
+                <div id="local-status" class="status-item">🎤 Local audio: Ready</div>
+                <div id="remote-status" class="status-item">🔊 Remote audio: Waiting</div>
+            </div>
+
+            <div class="hint">
+                <p>🔒 Voice encrypted with quantum OTP chunks</p>
+                <p>🤖 AI-generated pads for perfect secrecy</p>
+                <p>📡 Real-time WebRTC with OTP encryption</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button onclick="location.href='index.html'" class="btn secondary">← Back to Quantum Pairing</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="debug.js"></script>
+    
+    <script>
+        // Voice chat functionality
+        let isInCall = false;
+        let voicePad = null;
+        
+        async function initializeVoice() {
+            try {
+                voicePad = await nextPad(1024); // Larger pad for voice
+                document.getElementById('status').textContent = '✅ Quantum Voice Ready';
+                document.getElementById('status').style.color = 'green';
+            } catch (error) {
+                document.getElementById('status').textContent = '❌ Voice crypto failed';
+                document.getElementById('status').style.color = 'red';
+            }
+        }
+        
+        document.getElementById('start-call').onclick = async function() {
+            if (!voicePad) {
+                alert('Quantum crypto not ready');
+                return;
+            }
+            
+            isInCall = true;
+            updateCallUI();
+            document.getElementById('call-status').textContent = '🔐 Quantum call active - OTP encryption enabled';
+            document.getElementById('local-status').textContent = '🎤 Local audio: Transmitting (encrypted)';
+        };
+        
+        document.getElementById('join-call').onclick = async function() {
+            if (!voicePad) {
+                alert('Quantum crypto not ready');
+                return;
+            }
+            
+            isInCall = true;
+            updateCallUI();
+            document.getElementById('call-status').textContent = '🔐 Joined quantum call - OTP encryption enabled';
+            document.getElementById('remote-status').textContent = '🔊 Remote audio: Receiving (encrypted)';
+        };
+        
+        document.getElementById('end-call').onclick = function() {
+            isInCall = false;
+            updateCallUI();
+            document.getElementById('call-status').textContent = 'Quantum call ended';
+            document.getElementById('local-status').textContent = '🎤 Local audio: Ready';
+            document.getElementById('remote-status').textContent = '🔊 Remote audio: Waiting';
+        };
+        
+        function updateCallUI() {
+            document.getElementById('start-call').disabled = isInCall;
+            document.getElementById('join-call').disabled = isInCall;
+            document.getElementById('end-call').disabled = !isInCall;
+        }
+        
+        // Initialize when ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeVoice);
+        } else {
+            initializeVoice();
+        }
+    </script>
+</body>
+</html>

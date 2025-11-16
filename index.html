@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entangle Chat-2 - Quantum Secure Messaging</title>
+    <meta name="description" content="Quantum-inspired secure PWA for private text & voice chat">
+    <link rel="stylesheet" href="styles.css">
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔗 Entangle Chat-2</h1>
+            <p class="subtitle">Quantum-inspired secure messaging</p>
+        </header>
+
+        <div class="status-container">
+            <div id="status" class="status">Initializing Quantum Network...</div>
+            <div id="output" class="output"></div>
+        </div>
+
+        <div class="qr-section">
+            <h3>Your Quantum Code</h3>
+            <div id="code-display" class="code-display">Generating...</div>
+            <p class="hint">Share this code with your partner to entangle</p>
+        </div>
+
+        <div class="actions">
+            <button id="scan" class="btn primary">📷 Enter Partner Code</button>
+            <button id="regen-seed" class="btn secondary">🔄 New Quantum Seed</button>
+        </div>
+
+        <div class="navigation">
+            <button id="text-chat" class="btn feature" disabled>💬 Secure Text Chat</button>
+            <button id="voice-chat" class="btn feature" disabled>🎙️ Quantum Voice Chat</button>
+        </div>
+
+        <div class="info">
+            <h3>How It Works</h3>
+            <div class="steps">
+                <div class="step">1. Share your quantum code with partner</div>
+                <div class="step">2. Enter partner's code to entangle</div>
+                <div class="step">3. Chat securely with AI OTP encryption</div>
+            </div>
+        </div>
+
+        <footer>
+            <p class="privacy">🔒 No phone numbers • No server logs • No metadata</p>
+            <p class="license">Quantum AI Network • MIT License</p>
+        </footer>
+    </div>
+
+    <!-- Main App Script -->
+    <script src="app.js"></script>
+    
+    <!-- Debug Console -->
+    <script src="debug.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered: ', registration))
+                    .catch(error => console.log('SW registration failed: ', error));
+            });
+        }
+    </script>
+</body>
+</html>

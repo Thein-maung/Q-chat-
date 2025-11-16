@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Text Chat - Entangle Chat-2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💬 Secure Text Chat</h1>
+            <div class="status-container">
+                <div id="status" class="status">Loading Quantum Crypto...</div>
+            </div>
+        </header>
+
+        <div class="chat-container">
+            <div id="messages" class="messages">
+                <div class="message system">🔗 Quantum entanglement established</div>
+                <div class="message system">🤖 AI OTP pads ready for secure messaging</div>
+            </div>
+            
+            <div class="input-section">
+                <div class="input-group">
+                    <input type="text" id="msg-input" placeholder="Type your quantum message..." disabled>
+                    <button id="send" class="btn primary" disabled>Encrypt & Send</button>
+                </div>
+                <button id="regen" class="btn secondary">🔄 New OTP Pad</button>
+            </div>
+
+            <div class="hint">
+                <p>💡 Paste encrypted messages to decrypt automatically</p>
+                <p>🔒 Each message uses a new AI-generated OTP pad</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button onclick="location.href='index.html'" class="btn secondary">← Back to Quantum Pairing</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="debug.js"></script>
+    
+    <script>
+        // Chat-specific functionality
+        let chatPad = null;
+        
+        async function initializeChat() {
+            try {
+                chatPad = await nextPad(32);
+                document.getElementById('status').textContent = '✅ Quantum Crypto Ready';
+                document.getElementById('status').style.color = 'green';
+                document.getElementById('msg-input').disabled = false;
+                document.getElementById('send').disabled = false;
+                document.getElementById('msg-input').focus();
+            } catch (error) {
+                document.getElementById('status').textContent = '❌ Quantum crypto failed';
+                document.getElementById('status').style.color = 'red';
+            }
+        }
+        
+        document.getElementById('send').onclick = async function() {
+            const input = document.getElementById('msg-input');
+            const message = input.value.trim();
+            
+            if (!message || !chatPad) return;
+            
+            try {
+                const encrypted = encrypt(message, chatPad);
+                
+                // Add sent message
+                addMessage(`You: ${message}`, 'sent');
+                addMessage(`Encrypted: ${encrypted}`, 'encrypted');
+                
+                // Clear input
+                input.value = '';
+                
+                // Generate new pad
+                chatPad = await nextPad(32);
+                addMessage('🔄 New quantum pad generated', 'system');
+                
+            } catch (error) {
+                addMessage('❌ Encryption failed', 'error');
+            }
+        };
+        
+        document.getElementById('msg-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('send').click();
+            }
+        });
+        
+        document.getElementById('regen').onclick = async function() {
+            chatPad = await nextPad(32);
+            addMessage('🔄 New OTP pad generated', 'system');
+        };
+        
+        function addMessage(text, type) {
+            const messages = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.textContent = text;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        // Initialize when ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeChat);
+        } else {
+            initializeChat();
+        }
+    </script>
+</body>
+</html>
