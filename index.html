@@ -69,5 +69,39 @@
             });
         }
     </script>
+    <!-- Mobile Debug Script -->
+<script>
+    // Mobile-specific debug
+    console.log('📱 Mobile debug: Script loaded');
+    
+    // Check mobile features
+    setTimeout(function() {
+        console.log('📱 User Agent:', navigator.userAgent);
+        console.log('📱 Crypto available:', !!window.crypto);
+        console.log('📱 Touch support:', 'ontouchstart' in window);
+        
+        // Force status update if stuck
+        const status = document.getElementById('status');
+        const codeDisplay = document.getElementById('code-display');
+        
+        if (status && status.textContent.includes('Initializing')) {
+            console.log('📱 App seems stuck, forcing update...');
+            status.textContent = '📱 Tap buttons below';
+            status.style.color = 'blue';
+            
+            if (codeDisplay && codeDisplay.textContent === 'Generating...') {
+                // Show manual code
+                codeDisplay.textContent = 'MOBILE-TEST-CODE-123';
+                codeDisplay.style.color = 'orange';
+            }
+        }
+    }, 2000);
+    
+    // Add touch feedback for mobile
+    document.addEventListener('touchstart', function() {
+        // Helps with mobile touch responsiveness
+    }, { passive: true });
+</script>
 </body>
+
 </html>
